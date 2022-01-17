@@ -2,10 +2,12 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './AddContactForm.module.css';
 import CONFIG from '../../Data/inputConfig.json';
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 import { AiOutlineUserAdd } from 'react-icons/ai';
+import { connect } from 'react-redux';
+import actions from '../../Redux/phonebook/contacts-actions';
 
-export default function AddContactForm({ onSubmit }) {
+function AddContactForm({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -71,3 +73,10 @@ export default function AddContactForm({ onSubmit }) {
 AddContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (name, number, email) =>
+    dispatch(actions.addContact(name, number, email)),
+});
+
+export default connect(null, mapDispatchToProps)(AddContactForm);
