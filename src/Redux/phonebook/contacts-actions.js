@@ -1,7 +1,7 @@
 import types from './contacts-types';
 import { nanoid } from 'nanoid';
 
-const addContact = ({ id, name, number, email }) => ({
+const addContact = ({ name, number, email }) => ({
   type: types.ADD,
   payload: {
     id: nanoid(),
