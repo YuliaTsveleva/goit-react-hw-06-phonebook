@@ -4,7 +4,7 @@ import s from './ContactList.module.css';
 import ContactItem from '../ContactItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { getFilteredContacts } from '../../Redux/phonebook/contacts-selectors';
-import actions from '../../Redux/phonebook/contacts-actions';
+import * as actions from '../../Redux/phonebook/contacts-actions';
 
 export default function ContactList(/*{ contacts, onDeleteContact }*/) {
   const contacts = useSelector(getFilteredContacts);

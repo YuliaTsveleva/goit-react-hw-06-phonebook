@@ -6,7 +6,7 @@ import CONFIG from '../../Data/inputConfig.json';
 import { AiOutlineUserAdd } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from '../../Redux/phonebook/contacts-selectors';
-import actions from '../../Redux/phonebook/contacts-actions';
+import * as actions from '../../Redux/phonebook/contacts-actions';
 
 export default function AddContactForm(/*{ contacts, onSubmit }*/) {
   const [name, setName] = useState('');
