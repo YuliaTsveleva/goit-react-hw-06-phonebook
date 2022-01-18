@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './AddContactForm.module.css';
 import CONFIG from '../../Data/inputConfig.json';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { AiOutlineUserAdd } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import actions from '../../Redux/phonebook/contacts-actions';

@@ -6,12 +6,10 @@ import ContactList from './Components/ContactList';
 import Filter from './Components/Filter';
 import EmptyText from './Components/EmptyText';
 // import { nanoid } from 'nanoid';
-import { useLocalStorage } from './Hooks/UseLocalStorage';
+// import { useLocalStorage } from './Hooks/UseLocalStorage';
+import { connect } from 'react-redux';
 
-export default function App() {
-  // const [contacts, setContacts] = useLocalStorage('contacts', []);
-  // const [filter, setFilter] = useState('');
-
+function App({ contactsLength }) {
   // const addContact = ({ name, number, email }) => {
   //   const alreadyExist = contacts.find(
   //     contact => contact.name.toLowerCase() === name.toLowerCase(),
@@ -29,44 +27,24 @@ export default function App() {
   //   setFilter('');
   // };
 
-  // const changeFilter = e => {
-  //   setFilter(e.currentTarget.value);
-  // };
-
-  // const removeContact = contactId => {
-  //   setContacts(contacts.filter(contact => contact.id !== contactId));
-  // };
-
-  // useEffect(() => {
-  //   setContacts(contacts);
-  // }, [contacts, setContacts]);
-
-  // const filteredContacts = contacts.filter(contact => {
-  //   const normFilter = filter.toLowerCase();
-  //   return contact.name.toLowerCase().includes(normFilter);
-  // });
-
   return (
     <div className="App">
       <Section title="Phonebook">
         <AddContactForm />
       </Section>
       <Section title="Contacts">
-        {/* {contacts.length > 1 && ( */}
-        <Filter
-        // value={filter}
-        // onChange={changeFilter}
-        // total={contacts.length}
-        />
-        {/* )} */}
-        <ContactList />
-        {/*         
-        // contacts={filteredContacts}
-        // onClick={removeContact}
-        ></ContactList> */}
+        {contactsLength > 1 && <Filter />}
 
-        {/* {contacts.length === 0 && <EmptyText />} */}
+        <ContactList />
+
+        {contactsLength === 0 && <EmptyText />}
       </Section>
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  contactsLength: state.phonebook.contacts.length,
+});
+
+export default connect(mapStateToProps, null)(App);
