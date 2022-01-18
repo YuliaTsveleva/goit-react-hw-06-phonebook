@@ -7,7 +7,7 @@ import { AiOutlineUserAdd } from 'react-icons/ai';
 import { connect } from 'react-redux';
 import actions from '../../Redux/phonebook/contacts-actions';
 
-function AddContactForm({ onSubmit }) {
+function AddContactForm({ contacts, onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -30,7 +30,12 @@ function AddContactForm({ onSubmit }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, number, email });
+    const alreadyExist = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+    if (!alreadyExist && name !== '' && number !== '') {
+      onSubmit({ name, number, email });
+    }
     e.target.reset();
     resetState();
   };
@@ -74,9 +79,13 @@ AddContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+  contacts: state.phonebook.contacts,
+});
+
 const mapDispatchToProps = dispatch => ({
   onSubmit: (name, number, email) =>
     dispatch(actions.addContact(name, number, email)),
 });
 
-export default connect(null, mapDispatchToProps)(AddContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddContactForm);
