@@ -7,7 +7,7 @@ import Filter from './Components/Filter';
 import EmptyText from './Components/EmptyText';
 // import { nanoid } from 'nanoid';
 // import { useLocalStorage } from './Hooks/UseLocalStorage';
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getContacts } from './Redux/phonebook/contacts-selectors';
 
 export default function App(/*{ contactsLength }*/) {
