@@ -29,7 +29,7 @@ const middleware = [
 const contactsPersistConfig = {
   key: 'contacts',
   storage,
-  blacklist: ['filter'],
+  blacklist: 'filter',
 };
 
 const rootReducer = combineReducers({

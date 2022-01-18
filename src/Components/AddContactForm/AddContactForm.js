@@ -1,16 +1,26 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import s from './AddContactForm.module.css';
 import CONFIG from '../../Data/inputConfig.json';
 // import { nanoid } from 'nanoid';
 import { AiOutlineUserAdd } from 'react-icons/ai';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getContacts } from '../../Redux/phonebook/contacts-selectors';
 import actions from '../../Redux/phonebook/contacts-actions';
 
-function AddContactForm({ contacts, onSubmit }) {
+export default function AddContactForm(/*{ contacts, onSubmit }*/) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [email, setEmail] = useState('');
+
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  // console.log(contacts);
+  // const mapDispatchToProps = dispatch => ({
+  //   onSubmit: (name, number, email) =>
+  //     dispatch(actions.addContact(name, number, email)),
+  // });
 
   const handleChange = e => {
     switch (e.target.name) {
@@ -30,12 +40,20 @@ function AddContactForm({ contacts, onSubmit }) {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     const alreadyExist = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
-    if (!alreadyExist && name !== '' && number !== '') {
-      onSubmit({ name, number, email });
+
+    if (alreadyExist) {
+      alert(`${name} is already exists in contacts`);
     }
+
+    if (!alreadyExist && name !== '' && number !== '') {
+      dispatch(actions.addContact({ name, number, email }));
+      // onSubmit({ name, number, email });
+    }
+    dispatch(actions.changeFilter(''));
     e.target.reset();
     resetState();
   };
@@ -75,17 +93,12 @@ function AddContactForm({ contacts, onSubmit }) {
   );
 }
 
-AddContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// AddContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
-const mapStateToProps = state => ({
-  contacts: state.phonebook.contacts,
-});
+// const mapStateToProps = state => ({
+//   contacts: state.phonebook.contacts,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (name, number, email) =>
-    dispatch(actions.addContact(name, number, email)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddContactForm);
+// export default connect(mapStateToProps, mapDispatchToProps)(AddContactForm);
