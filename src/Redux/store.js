@@ -19,10 +19,6 @@ const contactsPersistConfig = {
   blacklist: ['filter'],
 };
 
-// const rootReducer = combineReducers({
-//   phonebook: contactsReducer,
-// });
-
 export const store = configureStore({
   reducer: persistReducer(contactsPersistConfig, contactsReducer),
   middleware: getDefaultMiddleware =>
@@ -35,6 +31,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-// const stores = { store, persistor };
-// export default stores;

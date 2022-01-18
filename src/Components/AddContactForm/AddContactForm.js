@@ -1,26 +1,19 @@
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
 import s from './AddContactForm.module.css';
 import CONFIG from '../../Data/inputConfig.json';
-// import { nanoid } from 'nanoid';
 import { AiOutlineUserAdd } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from '../../Redux/phonebook/contacts-selectors';
 import * as actions from '../../Redux/phonebook/contacts-actions';
+import { nanoid } from 'nanoid';
 
-export default function AddContactForm(/*{ contacts, onSubmit }*/) {
+export default function AddContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [email, setEmail] = useState('');
 
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
-  // console.log(contacts);
-  // const mapDispatchToProps = dispatch => ({
-  //   onSubmit: (name, number, email) =>
-  //     dispatch(actions.addContact(name, number, email)),
-  // });
 
   const handleChange = e => {
     switch (e.target.name) {
@@ -40,18 +33,14 @@ export default function AddContactForm(/*{ contacts, onSubmit }*/) {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     const alreadyExist = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
-
     if (alreadyExist) {
       alert(`${name} is already exists in contacts`);
     }
-
     if (!alreadyExist && name !== '' && number !== '') {
-      dispatch(actions.addContact({ name, number, email }));
-      // onSubmit({ name, number, email });
+      dispatch(actions.addContact({ id: nanoid(), name, number, email }));
     }
     dispatch(actions.changeFilter(''));
     e.target.reset();
@@ -92,13 +81,3 @@ export default function AddContactForm(/*{ contacts, onSubmit }*/) {
     </form>
   );
 }
-
-// AddContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
-
-// const mapStateToProps = state => ({
-//   contacts: state.phonebook.contacts,
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(AddContactForm);

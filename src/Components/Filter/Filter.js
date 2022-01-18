@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../Redux/phonebook/contacts-actions';
@@ -8,7 +7,7 @@ import {
   getContacts,
 } from '../../Redux/phonebook/contacts-selectors';
 
-export default function Filter(/*{ value, onChange, total }*/) {
+export default function Filter() {
   const value = useSelector(getFilter);
   const total = useSelector(getContacts).length;
   const dispatch = useDispatch();
@@ -25,20 +24,3 @@ export default function Filter(/*{ value, onChange, total }*/) {
     </label>
   );
 }
-
-// const mapStateToProps = ({ contacts, filter }) => ({
-//   value: filter,
-//   total: contacts.length,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   onChange: e => dispatch(actions.changeFilter(e.target.value)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Filter);
-
-// Filter.propTypes = {
-//   contacts: PropTypes.string,
-//   onChange: PropTypes.func,
-//   total: PropTypes.number,
-// };
