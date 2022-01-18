@@ -44,7 +44,7 @@ function App({ contactsLength }) {
 }
 
 const mapStateToProps = state => ({
-  contactsLength: state.phonebook.contacts.length,
+  contactsLength: state.contacts.length,
 });
 
 export default connect(mapStateToProps, null)(App);

@@ -1,10 +1,8 @@
-export const getContacts = state => state.phonebook.contacts;
-export const getFilter = state => state.phonebook.filter;
+export const getContacts = state => state.contacts;
+export const getFilter = state => state.filter;
 
 export const getFilteredContacts = state => {
-  const {
-    phonebook: { contacts, filter },
-  } = state;
+  const { contacts, filter } = state;
   const normFilter = filter.toLowerCase();
   return contacts.filter(contact =>
     contact.name.toLowerCase().includes(normFilter),

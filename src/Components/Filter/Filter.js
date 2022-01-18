@@ -18,7 +18,7 @@ const Filter = ({ value, onChange, total }) => {
   );
 };
 
-const mapStateToProps = ({ phonebook: { contacts, filter } }) => ({
+const mapStateToProps = ({ contacts, filter }) => ({
   value: filter,
   total: contacts.length,
 });

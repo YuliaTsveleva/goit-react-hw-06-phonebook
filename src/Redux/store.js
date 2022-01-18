@@ -19,12 +19,12 @@ const contactsPersistConfig = {
   blacklist: ['filter'],
 };
 
-const rootReducer = combineReducers({
-  phonebook: contactsReducer,
-});
+// const rootReducer = combineReducers({
+//   phonebook: contactsReducer,
+// });
 
 const store = configureStore({
-  reducer: persistReducer(contactsPersistConfig, rootReducer),
+  reducer: persistReducer(contactsPersistConfig, contactsReducer),
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
