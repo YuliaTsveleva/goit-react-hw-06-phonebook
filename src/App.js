@@ -7,9 +7,11 @@ import Filter from './Components/Filter';
 import EmptyText from './Components/EmptyText';
 // import { nanoid } from 'nanoid';
 // import { useLocalStorage } from './Hooks/UseLocalStorage';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { getContacts } from './Redux/phonebook/contacts-selectors';
 
-function App({ contactsLength }) {
+export default function App(/*{ contactsLength }*/) {
+  const contactsLength = useSelector(getContacts).length;
   // const addContact = ({ name, number, email }) => {
   //   const alreadyExist = contacts.find(
   //     contact => contact.name.toLowerCase() === name.toLowerCase(),
@@ -43,8 +45,8 @@ function App({ contactsLength }) {
   );
 }
 
-const mapStateToProps = state => ({
-  contactsLength: state.contacts.length,
-});
+// const mapStateToProps = state => ({
+//   contactsLength: state.contacts.length,
+// });
 
-export default connect(mapStateToProps, null)(App);
+// export default connect(mapStateToProps, null)(App);
