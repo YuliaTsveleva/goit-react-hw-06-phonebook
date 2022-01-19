@@ -33,17 +33,17 @@ export default function AddContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const alreadyExist = contacts.find(
+    const alreadyExist = contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
     if (alreadyExist) {
       alert(`${name} is already exists in contacts`);
-    }
-    if (!alreadyExist && name !== '' && number !== '') {
-      dispatch(actions.addContact({ id: nanoid(), name, number, email }));
+    } else {
+      const contact = { id: nanoid(), name, number, email };
+      dispatch(actions.addContact(contact));
     }
     dispatch(actions.changeFilter(''));
-    e.target.reset();
+    e.currentTarget.reset();
     resetState();
   };
 
@@ -54,25 +54,29 @@ export default function AddContactForm() {
   };
 
   return (
-    <form className={s.Form} autoComplete="off" onSubmit={handleSubmit}>
-      {CONFIG.map(field => (
-        <div key={field.name}>
-          <label className={s.Label}>
-            {field.label}
-            <input
-              id={field.id}
-              value={[field.name].value}
-              onChange={handleChange}
-              className={s.Input}
-              type={field.type}
-              name={field.name}
-              pattern={field.pattern}
-              title={field.title}
-              required={field.required}
-            />
-          </label>
-        </div>
-      ))}
+    <form className={s.Form} autoComplete="on" onSubmit={handleSubmit}>
+      {CONFIG.map(field => {
+        const state = { name, number, email };
+        return (
+          <div key={field.name}>
+            <label className={s.Label}>
+              {field.label}
+              <input
+                id={field.id}
+                value={state[field.name]}
+                onChange={handleChange}
+                className={s.Input}
+                type={field.type}
+                name={field.name}
+                pattern={field.pattern}
+                title={field.title}
+                required={field.required}
+                autoComplete="true"
+              />
+            </label>
+          </div>
+        );
+      })}
       <p className={s.Reminder}>Fields marked with * are required</p>
       <button className={s.Button} type="submit">
         <AiOutlineUserAdd className={s.Icon} size={16} />
